@@ -15,6 +15,8 @@
 
 ## 开发环境
 
+nohup java -jar -Duser.timezone=GMT+08 -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=256m -Xms128m -Xmx356m -Xmn256m -Xss256k -XX:SurvivorRatio=8 -XX:+UseConcMarkSweepGC -XX:CompileCommand=exclude,org/hibernate/cfg/annotations/SimpleValueBinder,setType yang-server.jar -p 8080 >log.log 2>&1 &
+
 - **JDK 1.8 +**
 - **Maven 3.5 +**
 - **IntelliJ IDEA ULTIMATE 2019.2 +** (*注意：务必使用 IDEA 开发，同时保证安装 `lombok` 插件*)
