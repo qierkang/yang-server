@@ -348,7 +348,7 @@ public class MapDataController {
 
     @RequestMapping("/user_rank_info")
     public Response<UserRankInfo> getUserRankInfo() {
-        return new Response<>(0, "", new UserRankInfo("吉林", new User()));
+        return new Response<>(0, "", new UserRankInfo("南京", new User()));
     }
 
     @Resource
@@ -372,5 +372,30 @@ public class MapDataController {
     @RequestMapping("/user_info")
     public Object getUserInfo() {
         return restTemplate.getForObject("https://cat-match.easygame2021.com/sheep/v1/game/user_info", Object.class);
+    }
+
+    @RequestMapping("/get_topic")
+    public Object getTopic() {
+        return restTemplate.getForObject("https://cat-match.easygame2021.com/sheep/v1/game/get_topic", Object.class);
+    }
+
+    @RequestMapping("/personal_info")
+    public Object personalInfo() {
+        return restTemplate.getForObject("https://cat-match.easygame2021.com/sheep/v1/game/personal_info", Object.class);
+    }
+
+    @RequestMapping("/bullet_send")
+    public Object bulletSend() {
+        return restTemplate.getForObject("https://cat-match.easygame2021.com/sheep/v1/game/bullet_send", Object.class);
+    }
+
+    @RequestMapping("/topic_join")
+    public Object topicJoin() {
+        return restTemplate.getForObject("https://cat-match.easygame2021.com/sheep/v1/game/topic_join", Object.class);
+    }
+
+    @RequestMapping("/update_user_skin")
+    public Object updateUserSkin() {
+        return restTemplate.getForObject("https://cat-match.easygame2021.com/sheep/v1/game/update_user_skin", Object.class);
     }
 }
