@@ -383,19 +383,19 @@ public class MapDataController {
     public Object personalInfo() {
         return restTemplate.getForObject("https://cat-match.easygame2021.com/sheep/v1/game/personal_info", Object.class);
     }
-
-    @RequestMapping("/bullet_send")
-    public Object bulletSend() {
-        return restTemplate.getForObject("https://cat-match.easygame2021.com/sheep/v1/game/bullet_send", Object.class);
-    }
-
-    @RequestMapping("/topic_join")
-    public Object topicJoin() {
-        return restTemplate.getForObject("https://cat-match.easygame2021.com/sheep/v1/game/topic_join", Object.class);
-    }
-
-    @RequestMapping("/update_user_skin")
-    public Object updateUserSkin() {
-        return restTemplate.getForObject("https://cat-match.easygame2021.com/sheep/v1/game/update_user_skin", Object.class);
-    }
+//
+//    @RequestMapping("/bullet_send")
+//    public Object bulletSend() {
+//        return restTemplate.getForObject("https://cat-match.easygame2021.com/sheep/v1/game/bullet_send", Object.class);
+//    }
+//
+//    @RequestMapping("/topic_join")
+//    public Object topicJoin() {
+//        return restTemplate.getForObject("https://cat-match.easygame2021.com/sheep/v1/game/topic_join", Object.class);
+//    }
+//
+//    @RequestMapping("/update_user_skin")
+//    public Object updateUserSkin() {
+//        return restTemplate.getForObject("https://cat-match.easygame2021.com/sheep/v1/game/update_user_skin", Object.class);
+//    }
 }
