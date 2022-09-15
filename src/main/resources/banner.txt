@@ -1,0 +1,27 @@
+${AnsiColor.WHITE}
+bannerAddress: http://patorjk.com/software/taag/#p=display&f=Blocks&t=TEST
+Font Name: Blocks
+
+${AnsiColor.BRIGHT_BLACK}
+                                             _____________________
+                                            < Hi, 我是牛哥❤❥吃不吃KFC? >
+                                             ---------------------
+                                                    \   ^__^
+                                                     \  (oo)\_______
+                                                        (__)\       )\/\
+                                                            ||----w |
+                                                            ||     ||
+
+${AnsiColor.BRIGHT_GREEN}
+Port: ${server.port} Pid: ${pid}
+Spring ${spring-boot.version}${spring-boot.formatted-version}
+${AnsiColor.BRIGHT_RED}
+< 来自老牛的肯定❥️ >
+    \▔\
+    )..)
+   /../▂▂▂
+▂▂╱┈ ▕▂▂▂▏
+▉┈-┈┈ ▕▂▂▂▏
+▉┈-┈┈▕▂▂▂▏
+▔▔╲▂▕▂▂▏
+
