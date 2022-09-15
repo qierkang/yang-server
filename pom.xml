@@ -42,6 +42,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!--只有api才需要作为二方库部署到maven仓库 -->
         <skip_maven_deploy>true</skip_maven_deploy>
+        <hutool-all.version>5.7.2</hutool-all.version>
     </properties>
 
     <dependencies>
@@ -65,6 +66,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool-all.version}</version>
         </dependency>
     </dependencies>
 
