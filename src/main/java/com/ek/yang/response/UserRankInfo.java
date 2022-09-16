@@ -1,6 +1,7 @@
-package com.ek.yang.model;
+package com.ek.yang.response;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 
 /**
  * @author ErKang
@@ -8,12 +9,9 @@ import lombok.AllArgsConstructor;
  * @title MapDataController.java
  * Department: Product development
  */
-@lombok.Data
+@Data
 @AllArgsConstructor
-public class Data {
-    String id;
-    Integer map_id;
-    String updated_at;
-    String map_data;
-    String created_at;
+public class UserRankInfo {
+    String region;
+    User user;
 }

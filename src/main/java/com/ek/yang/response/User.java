@@ -1,4 +1,4 @@
-package com.ek.yang.model;
+package com.ek.yang.response;
 
 import lombok.Data;
 
@@ -13,12 +13,12 @@ public class User {
     Integer state = 2;
     Integer first = 0;
     Integer uid = 114514;
-    String nickname = "田所浩二";
+    String nickname = "薯条";
     Integer time = 114514;
     String avatar = "https://baidu.com";
     Integer skin = 1;
-    String city = "下北泽";
-    String region = "东京都";
+    String city = "江苏省";
+    String region = "南京市";
     Integer role = 2;
     Integer ts = Math.toIntExact(System.currentTimeMillis()/1000);
     Integer fail = 114514;

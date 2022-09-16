@@ -1,4 +1,4 @@
-package com.ek.yang.requeset;
+package com.ek.yang.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,9 +1,12 @@
 package com.ek.yang.controller;
 
-import com.ek.yang.model.Data;
-import com.ek.yang.model.User;
-import com.ek.yang.model.UserRankInfo;
-import com.ek.yang.requeset.Response;
+import com.ek.yang.response.BaseResponse;
+import com.ek.yang.response.Data;
+import com.ek.yang.response.RankStageInfoResponse;
+import com.ek.yang.response.RespInfoResponse;
+import com.ek.yang.response.Response;
+import com.ek.yang.response.User;
+import com.ek.yang.response.UserRankInfo;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.ArrayList;
+
 import javax.annotation.Resource;
+
+import lombok.NoArgsConstructor;
 
 /**
  * @author ErKang
@@ -19,14 +26,20 @@ import javax.annotation.Resource;
  * @title MapDataController.java
  * Department: Product development
  */
+@NoArgsConstructor
+@lombok.Data
 @RestController
 @CrossOrigin
 @RequestMapping("/sheep/v1/game")
 public class MapDataController {
+
+    @Resource
+    private RestTemplate restTemplate;
+
     @RequestMapping("/map_info")
     public Response<Data> getMapData(@RequestParam("map_id") Integer id) {
         if (id == 90015) {
-            return new Response<>(0, "", new Data("62ce3c318a2da751dba21fd8", 90015, "2022-09-14T11:28:28.327Z", "{\"widthNum\":8,\"heightNum\":10," +
+            return new Response<>(0, "",new Data("62ce3c318a2da751dba21fd8", 90015, "2022-09-14T11:28:28.327Z", "{\"widthNum\":8,\"heightNum\":10," +
                     "\"levelKey\":90015,\"blockTypeData\":{\"1\":6,\"2\":6,\"3\":6,\"4\":6,\"5\":6,\"6\":6,\"7\":6,\"8\":7,\"9\":7,\"10\":7," +
                     "\"11\":6,\"12\":7,\"13\":6,\"14\":6,\"15\":7},\"levelData\":{\"1\":[{\"id\":\"1-28-20\",\"type\":0,\"rolNum\":28," +
                     "\"rowNum\":20,\"layerNum\":1,\"moldType\":1,\"blockNode\":null},{\"id\":\"1-8-52\",\"type\":0,\"rolNum\":8,\"rowNum\":52," +
@@ -316,7 +329,7 @@ public class MapDataController {
                     "\"blockNode\":null}]}}", "2022-07-13T03:29:53.404Z"));
         }
         if (id == 80001) {
-            return new Response<>(0, "", new Data("62ccde7d3dd1931da84a84e2", 80001, "2022-09-14T15:53:23.508Z", "{\"widthNum\":8,\"heightNum\":10," +
+            return new Response<>(0, "",new Data("62ccde7d3dd1931da84a84e2", 80001, "2022-09-14T15:53:23.508Z", "{\"widthNum\":8,\"heightNum\":10," +
                     "\"levelKey\":80001,\"blockTypeData\":{\"1\":2,\"4\":1,\"13\":2},\"levelData\":{\"1\":[{\"id\":\"1-16-16\",\"type\":0," +
                     "\"rolNum\":16,\"rowNum\":16,\"layerNum\":1,\"moldType\":1,\"blockNode\":null},{\"id\":\"1-28-16\",\"type\":0,\"rolNum\":28," +
                     "\"rowNum\":16,\"layerNum\":1,\"moldType\":1,\"blockNode\":null},{\"id\":\"1-40-16\",\"type\":0,\"rolNum\":40,\"rowNum\":16," +
@@ -337,65 +350,87 @@ public class MapDataController {
                     "\"blockNode\":null},{\"id\":\"2-40-36\",\"type\":0,\"rolNum\":40,\"rowNum\":36,\"layerNum\":2,\"moldType\":1," +
                     "\"blockNode\":null}]}}", "2022-07-12T02:37:49.515Z"));
         } else {
+//            return BaseResponse.errorNoToken();
             return new Response<>(10003, "没有权限", null);
         }
     }
 
     @RequestMapping("/game_over")
-    public Response<Integer> gameOver() {
-        return new Response<>(0, "", 0);
+    public BaseResponse gameOver() {
+        return BaseResponse.success(RespInfoResponse.getRespInfoDto());
+//        return new Response<>(0, "", 0);
     }
 
     @RequestMapping("/user_rank_info")
-    public Response<UserRankInfo> getUserRankInfo() {
-        return new Response<>(0, "", new UserRankInfo("南京", new User()));
+    public BaseResponse<UserRankInfo> getUserRankInfo() {
+        return BaseResponse.success(new UserRankInfo("南京", new User()));
+//        return new Response<>(0, "", new UserRankInfo("南京", new User()));
     }
 
-    @Resource
-    private RestTemplate restTemplate;
-
     @RequestMapping("/rank_info")
-    public Object getRankInfo() {
-        return restTemplate.getForObject("https://cat-match.easygame2021.com/sheep/v1/game/rank_info", Object.class);
+    public BaseResponse getRankInfo() {
+        return BaseResponse.success(RespInfoResponse.getRespInfoDto());
+//        return restTemplate.getForObject("https://cat-match.easygame2021.com/sheep/v1/game/rank_info", Object.class);
     }
 
     @RequestMapping("/rank_stage_info")
-    public Object getRankStageInfo() {
-        return restTemplate.getForObject("https://cat-match.easygame2021.com/sheep/v1/game/rank_stage_info", Object.class);
+    public BaseResponse getRankStageInfo() {
+        return BaseResponse.success(RankStageInfoResponse.getRankStageInfoDto());
+//        return restTemplate.getForObject("https://cat-match.easygame2021.com/sheep/v1/game/rank_stage_info", Object.class);
     }
 
     @RequestMapping("/get_bullet")
     public Object getBullet() {
-        return restTemplate.getForObject("https://cat-match.easygame2021.com/sheep/v1/game/get_bullet", Object.class);
+        return BaseResponse.success(new ArrayList<>());
+//        return restTemplate.getForObject("https://cat-match.easygame2021.com/sheep/v1/game/get_bullet", Object.class);
     }
 
     @RequestMapping("/user_info")
     public Object getUserInfo() {
-        return restTemplate.getForObject("https://cat-match.easygame2021.com/sheep/v1/game/user_info", Object.class);
+//        return BaseResponse.errorNoToken();
+        return BaseResponse.success(RespInfoResponse.getRespInfoDto());
+//        return restTemplate.getForObject("https://cat-match.easygame2021.com/sheep/v1/game/user_info", Object.class);
     }
 
     @RequestMapping("/get_topic")
     public Object getTopic() {
-        return restTemplate.getForObject("https://cat-match.easygame2021.com/sheep/v1/game/get_topic", Object.class);
+//        return BaseResponse.errorNoToken();
+        return BaseResponse.success(RespInfoResponse.getRespInfoDto());
+//        return restTemplate.getForObject("https://cat-match.easygame2021.com/sheep/v1/game/get_topic", Object.class);
     }
 
     @RequestMapping("/personal_info")
     public Object personalInfo() {
-        return restTemplate.getForObject("https://cat-match.easygame2021.com/sheep/v1/game/personal_info", Object.class);
+//        return BaseResponse.errorNoToken();
+        return BaseResponse.success(RespInfoResponse.getRespInfoDto());
+//        return restTemplate.getForObject("https://cat-match.easygame2021.com/sheep/v1/game/personal_info", Object.class);
     }
-//
-//    @RequestMapping("/bullet_send")
-//    public Object bulletSend() {
+
+    @RequestMapping("/bullet_send")
+    public Object bulletSend() {
+//        return BaseResponse.errorNoToken();
+        return BaseResponse.success(RespInfoResponse.getRespInfoDto());
 //        return restTemplate.getForObject("https://cat-match.easygame2021.com/sheep/v1/game/bullet_send", Object.class);
-//    }
-//
-//    @RequestMapping("/topic_join")
-//    public Object topicJoin() {
+    }
+
+    @RequestMapping("/topic_join")
+    public Object topicJoin() {
+//        return BaseResponse.errorNoToken();
+        return BaseResponse.success(RespInfoResponse.getRespInfoDto());
 //        return restTemplate.getForObject("https://cat-match.easygame2021.com/sheep/v1/game/topic_join", Object.class);
-//    }
-//
-//    @RequestMapping("/update_user_skin")
-//    public Object updateUserSkin() {
+    }
+
+    @RequestMapping("/update_user_skin")
+    public Object updateUserSkin() {
+        return BaseResponse.success(new ArrayList<>());
 //        return restTemplate.getForObject("https://cat-match.easygame2021.com/sheep/v1/game/update_user_skin", Object.class);
-//    }
+    }
+
+    @RequestMapping("/topic_match_info")
+    public Object topicMatchInfo() {
+//        return BaseResponse.errorNoToken();
+        return BaseResponse.success(RespInfoResponse.getRespInfoDto());
+//        return restTemplate.getForObject("https://cat-match.easygame2021.com/sheep/v1/game/update_user_skin", Object.class);
+    }
+
 }
