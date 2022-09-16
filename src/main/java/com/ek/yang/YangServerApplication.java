@@ -48,7 +48,7 @@ public class YangServerApplication {
             MDC.put("localIp", NetUtil.getLocalhostStr());
             log.info("#初始化randomUUID [{}]", IdUtil.randomUUID());
         } catch (Exception e) {
-            log.error("#初始化配置错误！");
+            log.error("#初始化配置错误！!");
         }
     }
 
