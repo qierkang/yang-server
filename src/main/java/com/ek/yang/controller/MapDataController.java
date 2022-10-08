@@ -1,7 +1,12 @@
 package com.ek.yang.controller;
 
+import com.ek.yang.config.GlobalConfig;
+import com.ek.yang.config.IDKWhatIsUtil;
+import com.ek.yang.model.MapData;
+import com.ek.yang.model.TopicData;
+import com.ek.yang.model.TopicInfo;
+import com.ek.yang.model.TopicRank;
 import com.ek.yang.response.BaseResponse;
-import com.ek.yang.response.Data;
 import com.ek.yang.response.RankStageInfoResponse;
 import com.ek.yang.response.RespInfoResponse;
 import com.ek.yang.response.Response;
@@ -14,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 import javax.annotation.Resource;
@@ -35,12 +42,35 @@ public class MapDataController {
 
     @Resource
     private RestTemplate restTemplate;
+    @Resource
+    private GlobalConfig config;
 
     @RequestMapping("/map_info")
-    public Response<Data> getMapData(@RequestParam("map_id") Integer id) {
-        if (id == 90015) {
-            return new Response<>(0, "",new Data("62ce3c318a2da751dba21fd8", 90015, "2022-09-14T11:28:28.327Z", "{\"widthNum\":8,\"heightNum\":10," +
-                    "\"levelKey\":90015,\"blockTypeData\":{\"1\":6,\"2\":6,\"3\":6,\"4\":6,\"5\":6,\"6\":6,\"7\":6,\"8\":7,\"9\":7,\"10\":7," +
+    public BaseResponse<MapData> getMapData(@RequestParam("map_id") Integer id) throws IOException, URISyntaxException {
+        BaseResponse<MapData> m_80001 = new BaseResponse<>(new MapData("62ccde7d3dd1931da84a84e2", 80001, "2022-09-14T15:53:23.508Z", "{\"widthNum" +
+                "\":8,\"heightNum\":10,\"levelKey\":80001,\"blockTypeData\":{\"1\":2,\"4\":1,\"13\":2},\"levelData\":{\"1\":[{\"id\":\"1-16-16\"," +
+                "\"type\":0,\"rolNum\":16,\"rowNum\":16,\"layerNum\":1,\"moldType\":1,\"blockNode\":null},{\"id\":\"1-28-16\",\"type\":0," +
+                "\"rolNum\":28,\"rowNum\":16,\"layerNum\":1,\"moldType\":1,\"blockNode\":null},{\"id\":\"1-40-16\",\"type\":0,\"rolNum\":40," +
+                "\"rowNum\":16,\"layerNum\":1,\"moldType\":1,\"blockNode\":null},{\"id\":\"1-16-32\",\"type\":0,\"rolNum\":16,\"rowNum\":32," +
+                "\"layerNum\":1,\"moldType\":1,\"blockNode\":null},{\"id\":\"1-28-32\",\"type\":0,\"rolNum\":28,\"rowNum\":32,\"layerNum\":1," +
+                "\"moldType\":1,\"blockNode\":null},{\"id\":\"1-40-32\",\"type\":0,\"rolNum\":40,\"rowNum\":32,\"layerNum\":1,\"moldType\":1," +
+                "\"blockNode\":null},{\"id\":\"1-16-48\",\"type\":0,\"rolNum\":16,\"rowNum\":48,\"layerNum\":1,\"moldType\":2,\"blockNode\":null}," +
+                "{\"id\":\"1-28-48\",\"type\":0,\"rolNum\":28,\"rowNum\":48,\"layerNum\":1,\"moldType\":2,\"blockNode\":null},{\"id\":\"1-40-48\"," +
+                "\"type\":0,\"rolNum\":40,\"rowNum\":48,\"layerNum\":1,\"moldType\":2,\"blockNode\":null}],\"2\":[{\"id\":\"2-16-49\",\"type\":0," +
+                "\"rolNum\":16,\"rowNum\":49,\"layerNum\":2,\"moldType\":2,\"blockNode\":null},{\"id\":\"2-28-49\",\"type\":0,\"rolNum\":28," +
+                "\"rowNum\":49,\"layerNum\":2,\"moldType\":2,\"blockNode\":null},{\"id\":\"2-40-49\",\"type\":0,\"rolNum\":40,\"rowNum\":49," +
+                "\"layerNum\":2,\"moldType\":2,\"blockNode\":null},{\"id\":\"2-16-20\",\"type\":1,\"rolNum\":16,\"rowNum\":20,\"layerNum\":2," +
+                "\"moldType\":1,\"blockNode\":null},{\"id\":\"2-28-20\",\"type\":1,\"rolNum\":28,\"rowNum\":20,\"layerNum\":2,\"moldType\":1," +
+                "\"blockNode\":null},{\"id\":\"2-40-20\",\"type\":1,\"rolNum\":40,\"rowNum\":20,\"layerNum\":2,\"moldType\":1,\"blockNode\":null}," +
+                "{\"id\":\"2-16-36\",\"type\":0,\"rolNum\":16,\"rowNum\":36,\"layerNum\":2,\"moldType\":1,\"blockNode\":null},{\"id\":\"2-28-36\"," +
+                "\"type\":0,\"rolNum\":28,\"rowNum\":36,\"layerNum\":2,\"moldType\":1,\"blockNode\":null},{\"id\":\"2-40-36\",\"type\":0," +
+                "\"rolNum\":40,\"rowNum\":36,\"layerNum\":2,\"moldType\":1,\"blockNode\":null}]}}", "2022-07-12T02:37:49.515Z"));
+        if (id == 80001) {
+            return m_80001;
+        }
+        if (config.hardCode) {
+            return new BaseResponse<>(new MapData("62ce3c318a2da751dba21fd8", id, "2022-09-14T11:28:28.327Z", "{\"widthNum\":8,\"heightNum\":10," +
+                    "\"levelKey\": " + id + ",\"blockTypeData\":{\"1\":6,\"2\":6,\"3\":6,\"4\":6,\"5\":6,\"6\":6,\"7\":6,\"8\":7,\"9\":7,\"10\":7," +
                     "\"11\":6,\"12\":7,\"13\":6,\"14\":6,\"15\":7},\"levelData\":{\"1\":[{\"id\":\"1-28-20\",\"type\":0,\"rolNum\":28," +
                     "\"rowNum\":20,\"layerNum\":1,\"moldType\":1,\"blockNode\":null},{\"id\":\"1-8-52\",\"type\":0,\"rolNum\":8,\"rowNum\":52," +
                     "\"layerNum\":1,\"moldType\":2,\"blockNode\":null},{\"id\":\"1-48-52\",\"type\":0,\"rolNum\":48,\"rowNum\":52,\"layerNum\":1," +
@@ -327,44 +357,26 @@ public class MapDataController {
                     "\"blockNode\":null}],\"28\":[{\"id\":\"28-52-12\",\"type\":0,\"rolNum\":52,\"rowNum\":12,\"layerNum\":28,\"moldType\":1," +
                     "\"blockNode\":null},{\"id\":\"28-4-12\",\"type\":0,\"rolNum\":4,\"rowNum\":12,\"layerNum\":28,\"moldType\":1," +
                     "\"blockNode\":null}]}}", "2022-07-13T03:29:53.404Z"));
-        }
-        if (id == 80001) {
-            return new Response<>(0, "",new Data("62ccde7d3dd1931da84a84e2", 80001, "2022-09-14T15:53:23.508Z", "{\"widthNum\":8,\"heightNum\":10," +
-                    "\"levelKey\":80001,\"blockTypeData\":{\"1\":2,\"4\":1,\"13\":2},\"levelData\":{\"1\":[{\"id\":\"1-16-16\",\"type\":0," +
-                    "\"rolNum\":16,\"rowNum\":16,\"layerNum\":1,\"moldType\":1,\"blockNode\":null},{\"id\":\"1-28-16\",\"type\":0,\"rolNum\":28," +
-                    "\"rowNum\":16,\"layerNum\":1,\"moldType\":1,\"blockNode\":null},{\"id\":\"1-40-16\",\"type\":0,\"rolNum\":40,\"rowNum\":16," +
-                    "\"layerNum\":1,\"moldType\":1,\"blockNode\":null},{\"id\":\"1-16-32\",\"type\":0,\"rolNum\":16,\"rowNum\":32,\"layerNum\":1," +
-                    "\"moldType\":1,\"blockNode\":null},{\"id\":\"1-28-32\",\"type\":0,\"rolNum\":28,\"rowNum\":32,\"layerNum\":1,\"moldType\":1," +
-                    "\"blockNode\":null},{\"id\":\"1-40-32\",\"type\":0,\"rolNum\":40,\"rowNum\":32,\"layerNum\":1,\"moldType\":1," +
-                    "\"blockNode\":null},{\"id\":\"1-16-48\",\"type\":0,\"rolNum\":16,\"rowNum\":48,\"layerNum\":1,\"moldType\":2," +
-                    "\"blockNode\":null},{\"id\":\"1-28-48\",\"type\":0,\"rolNum\":28,\"rowNum\":48,\"layerNum\":1,\"moldType\":2," +
-                    "\"blockNode\":null},{\"id\":\"1-40-48\",\"type\":0,\"rolNum\":40,\"rowNum\":48,\"layerNum\":1,\"moldType\":2," +
-                    "\"blockNode\":null}],\"2\":[{\"id\":\"2-16-49\",\"type\":0,\"rolNum\":16,\"rowNum\":49,\"layerNum\":2,\"moldType\":2," +
-                    "\"blockNode\":null},{\"id\":\"2-28-49\",\"type\":0,\"rolNum\":28,\"rowNum\":49,\"layerNum\":2,\"moldType\":2," +
-                    "\"blockNode\":null},{\"id\":\"2-40-49\",\"type\":0,\"rolNum\":40,\"rowNum\":49,\"layerNum\":2,\"moldType\":2," +
-                    "\"blockNode\":null},{\"id\":\"2-16-20\",\"type\":1,\"rolNum\":16,\"rowNum\":20,\"layerNum\":2,\"moldType\":1," +
-                    "\"blockNode\":null},{\"id\":\"2-28-20\",\"type\":1,\"rolNum\":28,\"rowNum\":20,\"layerNum\":2,\"moldType\":1," +
-                    "\"blockNode\":null},{\"id\":\"2-40-20\",\"type\":1,\"rolNum\":40,\"rowNum\":20,\"layerNum\":2,\"moldType\":1," +
-                    "\"blockNode\":null},{\"id\":\"2-16-36\",\"type\":0,\"rolNum\":16,\"rowNum\":36,\"layerNum\":2,\"moldType\":1," +
-                    "\"blockNode\":null},{\"id\":\"2-28-36\",\"type\":0,\"rolNum\":28,\"rowNum\":36,\"layerNum\":2,\"moldType\":1," +
-                    "\"blockNode\":null},{\"id\":\"2-40-36\",\"type\":0,\"rolNum\":40,\"rowNum\":36,\"layerNum\":2,\"moldType\":1," +
-                    "\"blockNode\":null}]}}", "2022-07-12T02:37:49.515Z"));
         } else {
-//            return BaseResponse.errorNoToken();
-            return new Response<>(10003, "没有权限", null);
+            new IDKWhatIsUtil().updateData();
+        }
+        if (GlobalConfig.gameMap.containsKey(id)) {
+            return BaseResponse.success(GlobalConfig.gameMap.get(id));
+
+        } else {
+            return BaseResponse.errorNoToken();
+
         }
     }
 
     @RequestMapping("/game_over")
     public BaseResponse gameOver() {
         return BaseResponse.success(RespInfoResponse.getRespInfoDto());
-//        return new Response<>(0, "", 0);
     }
 
     @RequestMapping("/user_rank_info")
     public BaseResponse<UserRankInfo> getUserRankInfo() {
         return BaseResponse.success(new UserRankInfo("南京", new User()));
-//        return new Response<>(0, "", new UserRankInfo("南京", new User()));
     }
 
     @RequestMapping("/rank_info")
@@ -394,28 +406,30 @@ public class MapDataController {
 
     @RequestMapping("/get_topic")
     public Object getTopic() {
-//        return BaseResponse.errorNoToken();
-        return BaseResponse.success(RespInfoResponse.getRespInfoDto());
+        TopicData data = new TopicData();
+        //logger.info("获取话题："+config.topicName);
+        data.setName(config.topicName);
+        data.setId(config.topicId);
+        data.setInfo(new TopicInfo());
+        return new Response<>(0, "", data);
+//        return BaseResponse.success(RespInfoResponse.getRespInfoDto());
 //        return restTemplate.getForObject("https://cat-match.easygame2021.com/sheep/v1/game/get_topic", Object.class);
     }
 
     @RequestMapping("/personal_info")
     public Object personalInfo() {
-//        return BaseResponse.errorNoToken();
         return BaseResponse.success(RespInfoResponse.getRespInfoDto());
 //        return restTemplate.getForObject("https://cat-match.easygame2021.com/sheep/v1/game/personal_info", Object.class);
     }
 
     @RequestMapping("/bullet_send")
     public Object bulletSend() {
-//        return BaseResponse.errorNoToken();
         return BaseResponse.success(RespInfoResponse.getRespInfoDto());
 //        return restTemplate.getForObject("https://cat-match.easygame2021.com/sheep/v1/game/bullet_send", Object.class);
     }
 
     @RequestMapping("/topic_join")
     public Object topicJoin() {
-//        return BaseResponse.errorNoToken();
         return BaseResponse.success(RespInfoResponse.getRespInfoDto());
 //        return restTemplate.getForObject("https://cat-match.easygame2021.com/sheep/v1/game/topic_join", Object.class);
     }
@@ -428,9 +442,13 @@ public class MapDataController {
 
     @RequestMapping("/topic_match_info")
     public Object topicMatchInfo() {
-//        return BaseResponse.errorNoToken();
         return BaseResponse.success(RespInfoResponse.getRespInfoDto());
 //        return restTemplate.getForObject("https://cat-match.easygame2021.com/sheep/v1/game/update_user_skin", Object.class);
+    }
+
+    @RequestMapping("/topic_rank")
+    public BaseResponse<TopicRank> topicRank() {
+        return BaseResponse.success(new TopicRank());
     }
 
 }
