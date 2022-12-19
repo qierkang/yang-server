@@ -23,8 +23,7 @@ public class DefaultViewController {
      * @Date Created in 2020/5/27 19:28
      * <p>File:  </p>
      */
-    @ResponseBody
-    @RequestMapping({"/", "/default", "default"})
+    @RequestMapping("/default")
     public String index() {
         return "default";
     }
